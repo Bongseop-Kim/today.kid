@@ -1,12 +1,12 @@
 // 환경 설정
 export const ENV = {
-  DEV: __DEV__, // 개발 환경 여부
+  DEV: false, // 개발 환경 여부
 };
 
 // 웹뷰 URL 설정
 export const WEBVIEW_URLS = {
   // 개발 환경일 때는 로컬 서버 주소 사용
-  LOCAL: "https://4414-183-107-241-168.ngrok-free.app",
+  LOCAL: "https://1f8c-183-107-241-168.ngrok-free.app",
   // 운영 환경일 때는 실제 서비스 주소 사용
   PRODUCTION: "https://kid-pass-psi.vercel.app",
 };

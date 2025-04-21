@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { ActivityIndicator, StyleSheet, View } from "react-native";
 import { WebView, WebViewProps } from "react-native-webview";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useWebViewToken } from "../utils/useWebViewToken";
-
 import { getWebViewUrl } from "@/config/config";
 import { getAccessToken } from "@/utils/tokenStorage";
 import { WebViewNavigationEvent } from "react-native-webview/lib/WebViewTypes";
+import { router } from "expo-router";
 
 interface CustomWebViewProps extends WebViewProps {
   // 필요한 경우 추가 속성을 여기에 정의할 수 있습니다
@@ -52,7 +52,7 @@ const CustomWebView: React.FC<CustomWebViewProps> = (props) => {
               if (!response.ok) {
                 const errorData = await response.json().catch(() => ({}));
                 console.error("토큰 갱신 실패:", response.status, errorData);
-                throw new Error(`토큰 갱신 실패: ${response.status}`);
+                router.push("/login");
               }
 
               const data = await response.json();
@@ -62,6 +62,7 @@ const CustomWebView: React.FC<CustomWebViewProps> = (props) => {
               // await saveToken(newRefreshToken);
 
               setFreshToken(accessToken);
+              console.log("새로운 토큰:", accessToken);
               if (onTokenReceived) {
                 onTokenReceived(accessToken);
               }
@@ -107,7 +108,11 @@ const CustomWebView: React.FC<CustomWebViewProps> = (props) => {
   if (requiresAuth && isLoading) {
     // 토큰을 가져오는 동안 로딩 상태 표시
     // 필요에 따라 로딩 컴포넌트를 추가할 수 있습니다
-    return <View style={styles.container}>{/* 로딩 인디케이터 */}</View>;
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
   }
 
   return (
@@ -127,6 +132,13 @@ const CustomWebView: React.FC<CustomWebViewProps> = (props) => {
         style={styles.webView}
         onMessage={handleMessage}
         onLoadEnd={handleLoadEnd}
+        keyboardDisplayRequiresUserAction={false}
+        hideKeyboardAccessoryView={true}
+        renderLoading={() => (
+          <View style={styles.container}>
+            <ActivityIndicator size="large" color="#0000ff" />
+          </View>
+        )}
       />
     </View>
   );
@@ -139,6 +151,7 @@ const styles = StyleSheet.create({
   },
   webView: {
     flex: 1,
+    marginBottom: 10,
   },
 });
 

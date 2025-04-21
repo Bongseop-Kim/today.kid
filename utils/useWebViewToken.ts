@@ -49,6 +49,11 @@ export function useWebViewToken(options: UseWebViewTokenOptions = {}) {
         if (onTokenReceived) {
           onTokenReceived(receivedToken);
         }
+      } else if (data.type === "logout") {
+        console.log("로그아웃 메시지를 웹뷰로부터 받았습니다");
+        setToken(null);
+        saveAccessToken("");
+        router.navigate("/login");
       }
     } catch (error) {
       console.error("웹뷰 메시지 처리 중 오류 발생:", error);
