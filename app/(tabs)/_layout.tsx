@@ -1,6 +1,6 @@
 import { Tabs } from "expo-router";
 import React from "react";
-import { Platform } from "react-native";
+import { Image, Platform } from "react-native";
 import { HapticTab } from "@/components/HapticTab";
 import { IconSymbol } from "@/components/ui/IconSymbol";
 import TabBarBackground from "@/components/ui/TabBarBackground";
@@ -30,7 +30,12 @@ export default function TabLayout() {
         options={{
           title: "홈",
           tabBarIcon: ({ color }: { color: string }) => (
-            <IconSymbol size={28} name="house.fill" color={color} />
+            <Image
+              source={require("../../assets/images/home.png")}
+              style={{ width: 24, height: 24 }}
+              resizeMode="contain"
+              tintColor={color}
+            />
           ),
         }}
       />
@@ -39,7 +44,12 @@ export default function TabLayout() {
         options={{
           title: "아이기록",
           tabBarIcon: ({ color }: { color: string }) => (
-            <IconSymbol size={28} name="paperplane.fill" color={color} />
+            <Image
+              source={require("../../assets/images/ruler.png")}
+              style={{ width: 24, height: 24 }}
+              resizeMode="contain"
+              tintColor={color}
+            />
           ),
         }}
       />
@@ -48,7 +58,12 @@ export default function TabLayout() {
         options={{
           title: "아이수첩",
           tabBarIcon: ({ color }: { color: string }) => (
-            <IconSymbol size={28} name="note.text" color={color} />
+            <Image
+              source={require("../../assets/images/book.png")}
+              style={{ width: 24, height: 24 }}
+              resizeMode="contain"
+              tintColor={color}
+            />
           ),
         }}
       />
@@ -57,7 +72,12 @@ export default function TabLayout() {
         options={{
           title: "병원찾기",
           tabBarIcon: ({ color }: { color: string }) => (
-            <IconSymbol size={28} name="cross.case.fill" color={color} />
+            <Image
+              source={require("../../assets/images/cross.png")}
+              style={{ width: 24, height: 24 }}
+              resizeMode="contain"
+              tintColor={color}
+            />
           ),
         }}
       />
@@ -66,7 +86,12 @@ export default function TabLayout() {
         options={{
           title: "더보기",
           tabBarIcon: ({ color }: { color: string }) => (
-            <IconSymbol size={28} name="ellipsis.circle.fill" color={color} />
+            <Image
+              source={require("../../assets/images/more.png")}
+              style={{ width: 24, height: 24 }}
+              resizeMode="contain"
+              tintColor={color}
+            />
           ),
         }}
       />
