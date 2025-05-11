@@ -54,6 +54,12 @@ export function useWebViewToken(options: UseWebViewTokenOptions = {}) {
         setToken(null);
         saveAccessToken("");
         router.navigate("/login");
+      } else if (data.type === "NAV" && data.data && data.data.route) {
+        console.log(
+          "네비게이션 메시지를 웹뷰로부터 받았습니다:",
+          data.data.route
+        );
+        router.navigate(data.data.route);
       }
     } catch (error) {
       console.error("웹뷰 메시지 처리 중 오류 발생:", error);

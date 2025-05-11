@@ -1,6 +1,6 @@
 // 환경 설정
 export const ENV = {
-  DEV: true, // 개발 환경 여부
+  DEV: false, // 개발 환경 여부
 };
 
 // 웹뷰 URL 설정
