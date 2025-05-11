@@ -6,11 +6,6 @@
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/images/splash-icon.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#729BED"
-    },
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
@@ -31,6 +26,17 @@
         "projectId": "39abd23b-0efb-4260-ac8f-b59630fa9b73"
       }
     },
-    "owner": "bongsub"
+    "owner": "bongsub",
+    "plugins": [
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#729BED",
+          "image": "./assets/images/splash-icon.png",
+          "resizeMode": "contain",
+          "imageWidth": 200
+        }
+      ]
+    ]
   }
 }
