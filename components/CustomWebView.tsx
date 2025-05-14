@@ -19,6 +19,7 @@ const CustomWebView: React.FC<CustomWebViewProps> = (props) => {
   const insets = useSafeAreaInsets();
   const [freshToken, setFreshToken] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isWebViewLoading, setIsWebViewLoading] = useState(false);
   const [refreshToken, setRefreshToken] = useState<string | null>(null);
 
   const { webViewRef, handleMessage } = useWebViewToken({
@@ -104,17 +105,26 @@ const CustomWebView: React.FC<CustomWebViewProps> = (props) => {
   // 웹뷰가 로드되면 토큰 전송
   const handleLoadEnd = () => {
     sendMessageToWebView();
+    setIsWebViewLoading(false);
     if (props.onLoadEnd) {
       props.onLoadEnd({} as WebViewNavigationEvent);
     }
   };
 
-  if (requiresAuth && isLoading) {
+  if (requiresAuth && (isLoading || isWebViewLoading)) {
     // 토큰을 가져오는 동안 로딩 상태 표시
     // 필요에 따라 로딩 컴포넌트를 추가할 수 있습니다
     return (
       <View style={styles.container}>
-        <ActivityIndicator size="large" color="#0000ff" />
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <ActivityIndicator size="large" color="#0000ff" />
+        </View>
       </View>
     );
   }
