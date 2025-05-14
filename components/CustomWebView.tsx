@@ -4,7 +4,7 @@ import { WebView, WebViewProps } from "react-native-webview";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useWebViewToken } from "../utils/useWebViewToken";
 import { getWebViewUrl } from "@/config/config";
-import { getAccessToken } from "@/utils/tokenStorage";
+import { getAccessToken, getRefreshToken } from "@/utils/tokenStorage";
 import { WebViewNavigationEvent } from "react-native-webview/lib/WebViewTypes";
 import { router } from "expo-router";
 
@@ -19,6 +19,7 @@ const CustomWebView: React.FC<CustomWebViewProps> = (props) => {
   const insets = useSafeAreaInsets();
   const [freshToken, setFreshToken] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [refreshToken, setRefreshToken] = useState<string | null>(null);
 
   const { webViewRef, handleMessage } = useWebViewToken({
     requiresAuth,
@@ -33,8 +34,9 @@ const CustomWebView: React.FC<CustomWebViewProps> = (props) => {
           setIsLoading(true);
           // 저장된 토큰 가져오기
           const storedToken = await getAccessToken();
+          const storedRefreshToken = await getRefreshToken();
 
-          if (storedToken) {
+          if (storedToken && storedRefreshToken) {
             try {
               // 리프레시 토큰을 사용하여 새 액세스 토큰 요청
               // API 경로를 /api/auth/refresh로 수정
@@ -45,7 +47,7 @@ const CustomWebView: React.FC<CustomWebViewProps> = (props) => {
                   headers: {
                     "Content-Type": "application/json",
                   },
-                  body: JSON.stringify({ refreshToken: storedToken }),
+                  body: JSON.stringify({ refreshToken: storedRefreshToken }),
                 }
               );
 
@@ -62,6 +64,7 @@ const CustomWebView: React.FC<CustomWebViewProps> = (props) => {
               // await saveToken(newRefreshToken);
 
               setFreshToken(accessToken);
+              setRefreshToken(newRefreshToken);
               console.log("새로운 토큰:", accessToken);
               if (onTokenReceived) {
                 onTokenReceived(accessToken);
@@ -87,10 +90,11 @@ const CustomWebView: React.FC<CustomWebViewProps> = (props) => {
 
   // 웹뷰로 메시지를 보내는 함수
   const sendMessageToWebView = () => {
-    if (requiresAuth && freshToken && webViewRef.current) {
+    if (requiresAuth && freshToken && refreshToken && webViewRef.current) {
       const messageData = JSON.stringify({
         type: "token",
         token: freshToken,
+        refreshToken,
       });
       console.log("새로운 토큰을 웹뷰로 전송합니다");
       webViewRef.current.postMessage(messageData);
