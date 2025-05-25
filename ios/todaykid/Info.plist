@@ -27,6 +27,7 @@
       <dict>
         <key>CFBundleURLSchemes</key>
         <array>
+          <string>todaykid</string>
           <string>com.bongsub.todaykid</string>
         </array>
       </dict>
