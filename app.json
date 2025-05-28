@@ -37,6 +37,13 @@
           "resizeMode": "contain",
           "imageWidth": 200
         }
+      ],
+      "expo-web-browser",
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "${PRODUCT_NAME}을 사용하기 위해 위치 정보를 허용합니다."
+        }
       ]
     ]
   }
