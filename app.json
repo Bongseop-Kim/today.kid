@@ -10,7 +10,8 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.bongsub.todaykid"
+      "bundleIdentifier": "com.bongsub.todaykid",
+      "googleServicesFile": "./GoogleService-Info.plist"
     },
     "android": {
       "adaptiveIcon": {
@@ -42,9 +43,10 @@
       [
         "expo-location",
         {
-          "locationAlwaysAndWhenInUsePermission": "${PRODUCT_NAME}을 사용하기 위해 위치 정보를 허용합니다."
+          "locationAlwaysAndWhenInUsePermission": "사용자 위치를 확인하여 주변 병원을 찾기 위해 위치 정보를 허용해주세요."
         }
-      ]
+      ],
+      ["@react-native-google-signin/google-signin"]
     ]
   }
 }

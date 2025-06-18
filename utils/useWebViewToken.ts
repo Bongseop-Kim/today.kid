@@ -66,6 +66,7 @@ export function useWebViewToken(options: UseWebViewTokenOptions = {}) {
         saveAccessToken("");
         saveRefreshToken("");
         router.navigate("/login");
+        console.log("로그아웃");
       } else if (data.type === "NAV" && data.data && data.data.route) {
         console.log(
           "네비게이션 메시지를 웹뷰로부터 받았습니다:",
