@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, StyleSheet, View } from "react-native";
+import {
+  ActivityIndicator,
+  DeviceEventEmitter,
+  StyleSheet,
+  View,
+} from "react-native";
 import { WebView, WebViewProps } from "react-native-webview";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useWebViewToken } from "../utils/useWebViewToken";
@@ -90,26 +95,40 @@ const CustomWebView: React.FC<CustomWebViewProps> = (props) => {
   }, [requiresAuth, onTokenReceived]);
 
   // 웹뷰로 메시지를 보내는 함수
-  const sendMessageToWebView = () => {
-    if (requiresAuth && freshToken && refreshToken && webViewRef.current) {
+  const sendMessageToWebView = (accessToken: string, refreshToken: string) => {
+    if (requiresAuth && accessToken && refreshToken && webViewRef.current) {
       const messageData = JSON.stringify({
         type: "token",
-        token: freshToken,
+        token: accessToken,
         refreshToken,
       });
-      console.log("새로운 토큰을 웹뷰로 전송합니다");
       webViewRef.current.postMessage(messageData);
     }
   };
 
   // 웹뷰가 로드되면 토큰 전송
   const handleLoadEnd = () => {
-    sendMessageToWebView();
+    sendMessageToWebView(freshToken!, refreshToken!);
     setIsWebViewLoading(false);
     if (props.onLoadEnd) {
       props.onLoadEnd({} as WebViewNavigationEvent);
     }
   };
+
+  useEffect(() => {
+    const subscription = DeviceEventEmitter.addListener(
+      "webviewReload",
+      ({ accessToken, refreshToken }) => {
+        if (webViewRef.current) {
+          sendMessageToWebView(accessToken, refreshToken);
+        }
+      }
+    );
+
+    return () => {
+      subscription.remove();
+    };
+  }, []);
 
   if (requiresAuth && (isLoading || isWebViewLoading)) {
     // 토큰을 가져오는 동안 로딩 상태 표시
