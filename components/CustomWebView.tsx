@@ -167,6 +167,15 @@ const CustomWebView: React.FC<CustomWebViewProps> = (props) => {
         onLoadEnd={handleLoadEnd}
         keyboardDisplayRequiresUserAction={false}
         hideKeyboardAccessoryView={true}
+        allowsBackForwardNavigationGestures={true}
+        allowsInlineMediaPlayback={true}
+        mediaPlaybackRequiresUserAction={false}
+        incognito={false} // Set to true if you want private browsing
+        cacheEnabled={true}
+        sharedCookiesEnabled={true}
+        startInLoadingState={true}
+        javaScriptEnabled={true}
+        domStorageEnabled={true}
         renderLoading={() => (
           <View style={styles.container}>
             <ActivityIndicator size="large" color="#0000ff" />

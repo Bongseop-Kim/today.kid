@@ -11,7 +11,8 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.bongsub.todaykid",
-      "googleServicesFile": "./GoogleService-Info.plist"
+      "googleServicesFile": "./GoogleService-Info.plist",
+      "useAppleSignIn": true
     },
     "android": {
       "adaptiveIcon": {
@@ -46,7 +47,17 @@
           "locationAlwaysAndWhenInUsePermission": "사용자 위치를 확인하여 주변 병원을 찾기 위해 위치 정보를 허용해주세요."
         }
       ],
-      ["@react-native-google-signin/google-signin"]
+      ["@react-native-google-signin/google-signin"],
+      ["expo-apple-authentication"],
+      [
+        "@react-native-kakao/core",
+        {
+          "nativeAppKey": "15fe13114d3ce37fc05be4962afb3be4",
+          "ios": {
+            "handleKakaoOpenUrl": true
+          }
+        }
+      ]
     ]
   }
 }
