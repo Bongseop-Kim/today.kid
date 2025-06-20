@@ -44,7 +44,9 @@
       [
         "expo-location",
         {
-          "locationAlwaysAndWhenInUsePermission": "사용자 위치를 확인하여 주변 병원을 찾기 위해 위치 정보를 허용해주세요."
+          "locationAlwaysAndWhenInUsePermission": "사용자 위치를 확인하여 주변 병원을 찾기 위해 위치 정보를 허용해주세요.",
+          "locationAlwaysUsageDescription": "사용자 위치를 확인하여 주변 병원을 찾기 위해 위치 정보를 허용해주세요.",
+          "locationWhenInUseUsageDescription": "사용자 위치를 확인하여 주변 병원을 찾기 위해 위치 정보를 허용해주세요."
         }
       ],
       ["@react-native-google-signin/google-signin"],
