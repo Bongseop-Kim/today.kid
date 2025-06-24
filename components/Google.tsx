@@ -54,19 +54,19 @@ const Google = () => {
   const startSignInFlow = async () => {
     try {
       await GoogleSignin.hasPlayServices();
-      
+
       // 먼저 현재 사용자 확인
       let currentUser = await GoogleSignin.getCurrentUser();
-      
+
       // 로그인된 사용자가 없으면 로그인 시도
       if (!currentUser) {
-        console.log('로그인된 사용자가 없습니다. 로그인을 시도합니다.');
+        console.log("로그인된 사용자가 없습니다. 로그인을 시도합니다.");
         const userInfo = await GoogleSignin.signIn();
         currentUser = await GoogleSignin.getCurrentUser();
-        console.log('새로 로그인한 사용자:', userInfo);
+        console.log("새로 로그인한 사용자:", userInfo);
       }
-      
-      console.log('현재 사용자:', currentUser);
+
+      console.log("현재 사용자:", currentUser);
       if (currentUser) {
         // Changed to POST method to match CustomWebView implementation
         const response = await fetch(
@@ -79,6 +79,7 @@ const Google = () => {
             body: JSON.stringify({
               provider: "google",
               user: {
+                id: currentUser.user.email,
                 email: currentUser.user.email,
                 name: currentUser.user.givenName,
                 photoURL: currentUser.user.photo,

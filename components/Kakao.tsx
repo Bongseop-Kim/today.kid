@@ -82,6 +82,7 @@ const Kakao = () => {
             body: JSON.stringify({
               provider: "kakao",
               user: {
+                id: profile.id,
                 email: profile.id + "@kakao.user",
                 name: profile.nickname,
                 photoURL: profile.profileImageUrl,

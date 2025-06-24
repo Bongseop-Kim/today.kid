@@ -48,13 +48,15 @@ const Ios = () => {
             }
           }
 
-          // fullName이 있으면 사용, 없으면 이메일에서 이름 추출
+          // fullName이 있으면 사용, 없으면 기본값 설정
           if (credential.fullName?.givenName) {
             name = credential.fullName.givenName;
-          } else if (email) {
-            // 이메일에서 @ 앞부분 추출
-            name = email.split("@")[0];
+          } else {
+            // Apple 사용자의 경우 기본 이름 사용
+            // 프록시 이메일에서 랜덤 문자열을 이름으로 사용하지 않음
+            name = "Apple 사용자";
           }
+
           // Send data to backend
           const response = await fetch(
             `${getWebViewUrl()}/api/auth/social-login`,
@@ -66,8 +68,9 @@ const Ios = () => {
               body: JSON.stringify({
                 provider: "apple",
                 user: {
-                  email: email || "",
-                  name: name || "",
+                  id: email,
+                  email,
+                  name,
                   appleIdentifier: credential.user,
                 },
               }),
@@ -79,6 +82,7 @@ const Ios = () => {
           }
 
           const { data } = await response.json();
+          console.log(email, name, data);
 
           if (data.accessToken) {
             await saveAccessToken(data.accessToken);
