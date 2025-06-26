@@ -4,6 +4,7 @@ import { router } from "expo-router";
 import { getWebViewUrl } from "@/config/config";
 import { DeviceEventEmitter, StyleSheet } from "react-native";
 import { Dimensions } from "react-native";
+import React from "react";
 
 const { width } = Dimensions.get("window");
 const styles = StyleSheet.create({
@@ -16,6 +17,24 @@ const styles = StyleSheet.create({
 });
 
 const Ios = () => {
+  // Apple 로그인 가용성 확인
+  const checkAppleSignInAvailability = async () => {
+    try {
+      const isAvailable = await AppleAuthentication.isAvailableAsync();
+      console.log("Apple Sign In 가용성:", isAvailable);
+      if (!isAvailable) {
+        console.error("Apple Sign In이 이 기기에서 사용할 수 없습니다.");
+      }
+    } catch (error) {
+      console.error("Apple Sign In 가용성 확인 오류:", error);
+    }
+  };
+
+  // 컴포넌트 마운트 시 가용성 확인
+  React.useEffect(() => {
+    checkAppleSignInAvailability();
+  }, []);
+
   return (
     <AppleAuthentication.AppleAuthenticationButton
       buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN}
@@ -94,10 +113,26 @@ const Ios = () => {
             router.navigate("/");
           }
         } catch (e: any) {
+          console.error("Apple Sign In Error:", e);
+          console.error("Error code:", e.code);
+          console.error("Error message:", e.message);
+
           if (e.code === "ERR_REQUEST_CANCELED") {
-            // handle that the user canceled the sign-in flow
+            console.log("사용자가 Apple 로그인을 취소했습니다.");
+          } else if (e.code === "ERR_REQUEST_FAILED") {
+            console.error(
+              "Apple 로그인 요청이 실패했습니다. 네트워크 또는 설정 문제일 수 있습니다."
+            );
+          } else if (e.code === "ERR_INVALID_RESPONSE") {
+            console.error("Apple에서 유효하지 않은 응답을 받았습니다.");
+          } else if (e.code === "ERR_REQUEST_NOT_HANDLED") {
+            console.error(
+              "Apple 로그인 요청이 처리되지 않았습니다. 설정 문제일 수 있습니다."
+            );
+          } else if (e.code === "ERR_REQUEST_NOT_INTERACTIVE") {
+            console.error("Apple 로그인이 인터랙티브하지 않습니다.");
           } else {
-            // handle other errors
+            console.error("알 수 없는 Apple 로그인 오류:", e);
           }
         }
       }}

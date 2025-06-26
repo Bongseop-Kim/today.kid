@@ -12,7 +12,11 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.bongsub.todaykid",
       "googleServicesFile": "./GoogleService-Info.plist",
-      "useAppleSignIn": true
+      "useAppleSignIn": true,
+      "entitlements": {
+        "com.apple.developer.applesignin": ["Default"]
+      },
+      "usesAppleSignIn": true
     },
     "android": {
       "adaptiveIcon": {

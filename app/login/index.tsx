@@ -33,7 +33,7 @@ export default function LoginScreen() {
       </View>
 
       <View style={{ width: "100%", flex: 1, padding: 20 }}>
-        <Google />
+        {/* <Google /> */}
 
         <View style={{ height: 20 }} />
         <Ios />
