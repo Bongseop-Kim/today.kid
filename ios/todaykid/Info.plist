@@ -21,7 +21,7 @@
     <key>CFBundlePackageType</key>
     <string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
     <key>CFBundleShortVersionString</key>
-    <string>1.0.0</string>
+    <string>1.0.1</string>
     <key>CFBundleSignature</key>
     <string>????</string>
     <key>CFBundleURLTypes</key>
@@ -73,6 +73,10 @@
     <string>사용자 위치를 확인하여 주변 병원을 찾기 위해 위치 정보를 허용해주세요.</string>
     <key>NSLocationWhenInUseUsageDescription</key>
     <string>사용자 위치를 확인하여 주변 병원을 찾기 위해 위치 정보를 허용해주세요.</string>
+    <key>NSUserActivityTypes</key>
+    <array>
+      <string>$(PRODUCT_BUNDLE_IDENTIFIER).expo.index_route</string>
+    </array>
     <key>UILaunchStoryboardName</key>
     <string>SplashScreen</string>
     <key>UIRequiredDeviceCapabilities</key>
