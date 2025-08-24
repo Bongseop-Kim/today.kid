@@ -137,7 +137,7 @@ const Kakao = () => {
       {isLoading ? (
         <ActivityIndicator
           size="small"
-          color="#000000"
+          color="#729bed"
           style={{ marginRight: 8 }}
         />
       ) : (

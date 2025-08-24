@@ -12,6 +12,8 @@ import { getWebViewUrl } from "@/config/config";
 import { getAccessToken, getRefreshToken } from "@/utils/tokenStorage";
 import { WebViewNavigationEvent } from "react-native-webview/lib/WebViewTypes";
 import { router } from "expo-router";
+import { Colors } from "@/constants/Colors";
+import { useColorScheme } from "@/hooks/useColorScheme.web";
 
 interface CustomWebViewProps extends WebViewProps {
   // 필요한 경우 추가 속성을 여기에 정의할 수 있습니다
@@ -26,6 +28,7 @@ const CustomWebView: React.FC<CustomWebViewProps> = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isWebViewLoading, setIsWebViewLoading] = useState(false);
   const [refreshToken, setRefreshToken] = useState<string | null>(null);
+  const colorScheme = useColorScheme();
 
   const { webViewRef, handleMessage } = useWebViewToken({
     requiresAuth,
@@ -142,7 +145,10 @@ const CustomWebView: React.FC<CustomWebViewProps> = (props) => {
             alignItems: "center",
           }}
         >
-          <ActivityIndicator size="large" color="#0000ff" />
+          <ActivityIndicator
+            size="small"
+            color={Colors[colorScheme ?? "light"].tint}
+          />
         </View>
       </View>
     );
@@ -178,7 +184,10 @@ const CustomWebView: React.FC<CustomWebViewProps> = (props) => {
         domStorageEnabled={true}
         renderLoading={() => (
           <View style={styles.container}>
-            <ActivityIndicator size="large" color="#0000ff" />
+            <ActivityIndicator
+              size="large"
+              color={Colors[colorScheme ?? "light"].tint}
+            />
           </View>
         )}
       />

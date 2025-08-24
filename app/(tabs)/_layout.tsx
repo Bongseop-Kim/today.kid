@@ -20,6 +20,8 @@ export default function TabLayout() {
         tabBarStyle: Platform.select({
           ios: {
             backgroundColor: "rgba(255, 255, 255, 0.8)",
+            height: 100,
+            paddingTop: 10,
           },
           default: {},
         }),
@@ -32,7 +34,7 @@ export default function TabLayout() {
           tabBarIcon: ({ color }: { color: string }) => (
             <Image
               source={require("../../assets/images/home.png")}
-              style={{ width: 24, height: 24 }}
+              style={{ width: 24, height: 24, marginBottom: 6 }}
               resizeMode="contain"
               tintColor={color}
             />
@@ -46,7 +48,7 @@ export default function TabLayout() {
           tabBarIcon: ({ color }: { color: string }) => (
             <Image
               source={require("../../assets/images/ruler.png")}
-              style={{ width: 24, height: 24 }}
+              style={{ width: 24, height: 24, marginBottom: 6 }}
               resizeMode="contain"
               tintColor={color}
             />
@@ -60,7 +62,7 @@ export default function TabLayout() {
           tabBarIcon: ({ color }: { color: string }) => (
             <Image
               source={require("../../assets/images/book.png")}
-              style={{ width: 24, height: 24 }}
+              style={{ width: 24, height: 24, marginBottom: 6 }}
               resizeMode="contain"
               tintColor={color}
             />
@@ -74,7 +76,7 @@ export default function TabLayout() {
           tabBarIcon: ({ color }: { color: string }) => (
             <Image
               source={require("../../assets/images/cross.png")}
-              style={{ width: 24, height: 24 }}
+              style={{ width: 24, height: 24, marginBottom: 6 }}
               resizeMode="contain"
               tintColor={color}
             />
@@ -88,7 +90,7 @@ export default function TabLayout() {
           tabBarIcon: ({ color }: { color: string }) => (
             <Image
               source={require("../../assets/images/more.png")}
-              style={{ width: 24, height: 24 }}
+              style={{ width: 24, height: 24, marginBottom: 6 }}
               resizeMode="contain"
               tintColor={color}
             />

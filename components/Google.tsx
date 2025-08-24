@@ -60,13 +60,10 @@ const Google = () => {
 
       // 로그인된 사용자가 없으면 로그인 시도
       if (!currentUser) {
-        console.log("로그인된 사용자가 없습니다. 로그인을 시도합니다.");
         const userInfo = await GoogleSignin.signIn();
         currentUser = await GoogleSignin.getCurrentUser();
-        console.log("새로 로그인한 사용자:", userInfo);
       }
 
-      console.log("현재 사용자:", currentUser);
       if (currentUser) {
         // Changed to POST method to match CustomWebView implementation
         const response = await fetch(
@@ -108,14 +105,10 @@ const Google = () => {
     } catch (error: any) {
       // 오류 처리
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-        console.log("사용자가 로그인을 취소함");
       } else if (error.code === statusCodes.IN_PROGRESS) {
-        console.log("로그인이 이미 진행 중입니다");
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-        console.log("Google Play 서비스를 사용할 수 없습니다");
         Alert.alert("오류", "Google Play 서비스를 사용할 수 없습니다.");
       } else {
-        console.error("Google 로그인 오류:", error);
         Alert.alert("로그인 오류", "Google 로그인 중 오류가 발생했습니다.");
       }
     }

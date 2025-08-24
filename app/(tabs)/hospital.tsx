@@ -11,6 +11,8 @@ import {
 } from "react-native";
 import * as Location from "expo-location";
 import { MaterialIcons } from "@expo/vector-icons";
+import { Colors } from "@/constants/Colors";
+import { useColorScheme } from "@/hooks/useColorScheme.web";
 
 export default function HospitalScreen() {
   // 초기 위도 경도 서울
@@ -19,6 +21,7 @@ export default function HospitalScreen() {
   const [list, setList] = useState([]);
   const [searchKeyword, setSearchKeyword] = useState("병원");
   const [isLoading, setIsLoading] = useState(false);
+  const colorScheme = useColorScheme();
 
   const fetchLocation = async () => {
     try {
@@ -315,9 +318,16 @@ export default function HospitalScreen() {
           >
             <View style={styles.refreshButtonInner}>
               {isLoading ? (
-                <ActivityIndicator size="small" color="#424242" />
+                <ActivityIndicator
+                  size="small"
+                  color={Colors[colorScheme ?? "light"].tint}
+                />
               ) : (
-                <MaterialIcons name="my-location" size={24} color="#424242" />
+                <MaterialIcons
+                  name="my-location"
+                  size={24}
+                  color={Colors[colorScheme ?? "light"].tint}
+                />
               )}
             </View>
           </TouchableOpacity>
