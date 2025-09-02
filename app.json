@@ -15,11 +15,38 @@
       "entitlements": {
         "com.apple.developer.applesignin": ["Default"]
       },
-      "usesAppleSignIn": true
+      "usesAppleSignIn": true,
+      "infoPlist": {
+        "NSAppTransportSecurity": {
+          "NSAllowsArbitraryLoads": false,
+          "NSExceptionDomains": {
+            "dapi.kakao.com": {
+              "NSExceptionAllowsInsecureHTTPLoads": false,
+              "NSExceptionMinimumTLSVersion": "1.0",
+              "NSExceptionRequiresForwardSecrecy": false,
+              "NSIncludesSubdomains": true
+            },
+            "t1.daumcdn.net": {
+              "NSExceptionAllowsInsecureHTTPLoads": false,
+              "NSExceptionMinimumTLSVersion": "1.0",
+              "NSExceptionRequiresForwardSecrecy": false,
+              "NSIncludesSubdomains": true
+            }
+          }
+        },
+        "NSLocationWhenInUseUsageDescription": "사용자 위치를 확인하여 주변 병원을 찾기 위해 위치 정보를 허용해주세요.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "사용자 위치를 확인하여 주변 병원을 찾기 위해 위치 정보를 허용해주세요.",
+        "NSLocationAlwaysUsageDescription": "사용자 위치를 확인하여 주변 병원을 찾기 위해 위치 정보를 허용해주세요."
+      }
     },
     "android": {
       "package": "com.bongsub.todaykid",
-      "icon": "./assets/images/Frame.png"
+      "icon": "./assets/images/Frame.png",
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "INTERNET"
+      ]
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
