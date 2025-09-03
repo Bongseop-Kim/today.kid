@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { WebView } from "react-native-webview";
 import { WebViewMessageEvent } from "react-native-webview";
-
+import * as Location from "expo-location";
 import { router } from "expo-router";
 import {
   getAccessToken,
@@ -9,6 +9,7 @@ import {
   saveAccessToken,
   saveRefreshToken,
 } from "./tokenStorage";
+import { LocationContext } from "@/components/provider/LocationProvider";
 
 interface UseWebViewTokenOptions {
   requiresAuth?: boolean;
@@ -20,6 +21,26 @@ export function useWebViewToken(options: UseWebViewTokenOptions = {}) {
   const webViewRef = useRef<WebView>(null);
   const [token, setToken] = useState<string | null>(null);
   const [refreshToken, setRefreshToken] = useState<string | null>(null);
+  const { latitude, longitude, setLocation } = useContext(LocationContext);
+
+  const getLocation = async () => {
+    try {
+      console.log("위치 권한 요청 중...");
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      console.log("위치 권한 요청 완료:", status);
+      if (status !== "granted") {
+        console.log("위치 권한이 거부되었습니다.");
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      const { latitude, longitude } = location.coords;
+
+      setLocation(latitude, longitude);
+    } catch (error) {
+      console.error("위치 정보를 가져올 수 없습니다:", error);
+    }
+  };
 
   useEffect(() => {
     // 컴포넌트 마운트 시 토큰 가져오기
@@ -73,6 +94,8 @@ export function useWebViewToken(options: UseWebViewTokenOptions = {}) {
           data.data.route
         );
         router.navigate(data.data.route);
+      } else if (data.type === "requestLocation") {
+        getLocation();
       }
     } catch (error) {
       console.error("웹뷰 메시지 처리 중 오류 발생:", error);

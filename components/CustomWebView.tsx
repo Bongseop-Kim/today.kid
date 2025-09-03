@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   ActivityIndicator,
   DeviceEventEmitter,
@@ -14,6 +14,7 @@ import { WebViewNavigationEvent } from "react-native-webview/lib/WebViewTypes";
 import { router } from "expo-router";
 import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme.web";
+import { LocationContext } from "./provider/LocationProvider";
 
 interface CustomWebViewProps extends WebViewProps {
   // 필요한 경우 추가 속성을 여기에 정의할 수 있습니다
@@ -29,6 +30,7 @@ const CustomWebView: React.FC<CustomWebViewProps> = (props) => {
   const [isWebViewLoading, setIsWebViewLoading] = useState(false);
   const [refreshToken, setRefreshToken] = useState<string | null>(null);
   const colorScheme = useColorScheme();
+  const { latitude, longitude, setLocation } = useContext(LocationContext);
 
   const { webViewRef, handleMessage } = useWebViewToken({
     requiresAuth,
@@ -108,6 +110,18 @@ const CustomWebView: React.FC<CustomWebViewProps> = (props) => {
       webViewRef.current.postMessage(messageData);
     }
   };
+
+  useEffect(() => {
+    if (latitude && longitude && webViewRef.current) {
+      webViewRef.current.postMessage(
+        JSON.stringify({
+          type: "location",
+          latitude,
+          longitude,
+        })
+      );
+    }
+  }, [latitude, longitude]);
 
   // 웹뷰가 로드되면 토큰 전송
   const handleLoadEnd = () => {

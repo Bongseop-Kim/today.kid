@@ -12,6 +12,7 @@ import { Platform } from "react-native";
 import { initializeKakaoSDK } from "@react-native-kakao/core";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
+import LocationProvider from "@/components/provider/LocationProvider";
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -35,12 +36,14 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="login" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
+      <LocationProvider>
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="login" options={{ headerShown: false }} />
+          <Stack.Screen name="+not-found" />
+        </Stack>
+        <StatusBar style="auto" />
+      </LocationProvider>
     </ThemeProvider>
   );
 }

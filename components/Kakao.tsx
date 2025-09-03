@@ -72,24 +72,24 @@ const Kakao = () => {
         const profile = await me();
 
         //send data to backend
-        const response = await fetch(
-          `${getWebViewUrl()}/api/auth/social-login`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
+
+        const url = `${getWebViewUrl()}/api/auth/social-login`;
+        const config = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            provider: "kakao",
+            user: {
+              id: profile.id.toString(),
+              email: profile.id + "@kakao.user",
+              name: profile.nickname,
+              photoURL: profile.profileImageUrl,
             },
-            body: JSON.stringify({
-              provider: "kakao",
-              user: {
-                id: profile.id,
-                email: profile.id + "@kakao.user",
-                name: profile.nickname,
-                photoURL: profile.profileImageUrl,
-              },
-            }),
-          }
-        );
+          }),
+        };
+        const response = await fetch(url, config);
 
         if (!response.ok) {
           throw new Error(`Token refresh failed: ${response.status}`);
