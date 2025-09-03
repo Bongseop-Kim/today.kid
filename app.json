@@ -2,7 +2,7 @@
   "expo": {
     "name": "today.kid",
     "slug": "todaykid",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/images/Frame.png",
     "userInterfaceStyle": "light",
