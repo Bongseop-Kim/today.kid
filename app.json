@@ -7,13 +7,18 @@
     "icon": "./assets/images/Frame.png",
     "userInterfaceStyle": "light",
     "scheme": "todaykid",
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.bongsub.todaykid",
       "googleServicesFile": "./GoogleService-Info.plist",
       "entitlements": {
-        "com.apple.developer.applesignin": ["Default"]
+        "com.apple.developer.applesignin": [
+          "Default",
+          "Default"
+        ]
       },
       "usesAppleSignIn": true,
       "infoPlist": {
@@ -36,7 +41,8 @@
         },
         "NSLocationWhenInUseUsageDescription": "사용자 위치를 확인하여 주변 병원을 찾기 위해 위치 정보를 허용해주세요.",
         "NSLocationAlwaysAndWhenInUseUsageDescription": "사용자 위치를 확인하여 주변 병원을 찾기 위해 위치 정보를 허용해주세요.",
-        "NSLocationAlwaysUsageDescription": "사용자 위치를 확인하여 주변 병원을 찾기 위해 위치 정보를 허용해주세요."
+        "NSLocationAlwaysUsageDescription": "사용자 위치를 확인하여 주변 병원을 찾기 위해 위치 정보를 허용해주세요.",
+        "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
@@ -45,7 +51,9 @@
       "permissions": [
         "ACCESS_COARSE_LOCATION",
         "ACCESS_FINE_LOCATION",
-        "INTERNET"
+        "INTERNET",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION"
       ]
     },
     "web": {
@@ -76,8 +84,12 @@
           "locationWhenInUseUsageDescription": "사용자 위치를 확인하여 주변 병원을 찾기 위해 위치 정보를 허용해주세요."
         }
       ],
-      ["@react-native-google-signin/google-signin"],
-      ["expo-apple-authentication"],
+      [
+        "@react-native-google-signin/google-signin"
+      ],
+      [
+        "expo-apple-authentication"
+      ],
       [
         "@react-native-kakao/core",
         {
