@@ -76,32 +76,34 @@ const Ios = () => {
             name = "Apple 사용자";
           }
 
-          // Send data to backend
-          const response = await fetch(
-            `${getWebViewUrl()}/api/auth/social-login`,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
+          const url = `${getWebViewUrl()}/api/auth/social-login`;
+          const config = {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              provider: "apple",
+              user: {
+                id: credential.user.toString(),
+                email,
+                name,
               },
-              body: JSON.stringify({
-                provider: "apple",
-                user: {
-                  id: email,
-                  email,
-                  name,
-                  appleIdentifier: credential.user,
-                },
-              }),
-            }
-          );
-
+            }),
+          };
+          // Send data to backend
+          const response = await fetch(url, config);
+          console.log(url);
+          console.log(config);
+          console.log(response);
           if (!response.ok) {
-            throw new Error(`Apple authentication failed: ${response.status}`);
+            const errorData = await response.json();
+            console.error(`Apple authentication failed: ${response.status}`, errorData);
+            throw new Error(errorData.message || `Apple authentication failed: ${response.status}`);
           }
 
-          const { data } = await response.json();
-          console.log(email, name, data);
+          const result = await response.json();
+          const { data } = result;
 
           if (data.accessToken) {
             await saveAccessToken(data.accessToken);
