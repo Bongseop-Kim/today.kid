@@ -2,23 +2,18 @@
   "expo": {
     "name": "today.kid",
     "slug": "todaykid",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "orientation": "portrait",
     "icon": "./assets/images/Frame.png",
     "userInterfaceStyle": "light",
     "scheme": "todaykid",
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.bongsub.todaykid",
       "googleServicesFile": "./GoogleService-Info.plist",
       "entitlements": {
-        "com.apple.developer.applesignin": [
-          "Default",
-          "Default"
-        ]
+        "com.apple.developer.applesignin": ["Default", "Default"]
       },
       "usesAppleSignIn": true,
       "infoPlist": {
@@ -84,12 +79,8 @@
           "locationWhenInUseUsageDescription": "사용자 위치를 확인하여 주변 병원을 찾기 위해 위치 정보를 허용해주세요."
         }
       ],
-      [
-        "@react-native-google-signin/google-signin"
-      ],
-      [
-        "expo-apple-authentication"
-      ],
+      ["@react-native-google-signin/google-signin"],
+      ["expo-apple-authentication"],
       [
         "@react-native-kakao/core",
         {
